@@ -10,5 +10,4 @@ const initProject = async () => {
     app.mount('#app')
 }
 
-
 initProject()

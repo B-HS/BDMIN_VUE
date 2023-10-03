@@ -1,3 +1,5 @@
 export interface appSetting {
-    isLoading : boolean;
+    isLoading: boolean
+    menubarWidth: number
+    menubarHide: boolean
 }
