@@ -1,0 +1,26 @@
+server:
+    port: 29092
+spring: 
+    devtools:
+        livereload:
+            enabled : true
+        add-properties: false
+    servlet:
+        multipart:
+            maxFileSize : 30MB
+            maxRequestSize : 30MB
+    datasource: 
+        url : jdbc:mysql://localhost:30000/bmdm?useUnicode=yes&characterEncoding=UTF-8
+        username: root
+        password: bmdm
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+        generate-ddl: true
+        open-in-view: false
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.MySQLDialect
+                "[default_batch_fetch_size]": 500      
+                "[format_sql]": true
+            ddl-auto: update
+        show-sql: true
