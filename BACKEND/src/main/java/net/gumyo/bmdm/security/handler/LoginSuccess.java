@@ -37,13 +37,13 @@ public class LoginSuccess implements AuthenticationSuccessHandler {
         User user = urepo.findByUrname(authentication.getName())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         List<String> tokens = jwtManager.tokenGenerator(user.getUrkey(), user.getEmail());
-        Map<String, String> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
 
         urepo.loggedMember(user.getUrkey(), true);
         redisManager.setRefreshToken(tokens.get(1), user.getUrkey());
-
         result.put("atk", tokens.get(0));
         result.put("rtk", tokens.get(1));
+        result.put("userInfo", user.getLoginInfo());
         response.getWriter().write(objectMapper.writeValueAsString(result));
     }
 }

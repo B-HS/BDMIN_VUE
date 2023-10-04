@@ -1,5 +1,7 @@
 package net.gumyo.bmdm.entity;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -66,4 +68,17 @@ public class User {
     public void updateLoginStatus(Boolean logged) {
         this.isLogged = logged;
     }
+
+    public Map<String, Object> getLoginInfo() {
+        Map<String, Object> user = new HashMap<>();
+        user.put("urkey", urkey);
+        user.put("email", email);
+        user.put("urname", urname);
+        user.put("nickname", urnickname);
+        user.put("introduce", introduce);
+        user.put("lastLogin", lastLogin);
+        user.put("roles", roles);
+        return user;
+    }
+
 }
