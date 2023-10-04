@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { computed, reactive } from 'vue'
+import { axios } from '../../module/axios'
 import { User } from '../../types/user'
 import { store } from '../store'
 
@@ -18,7 +19,9 @@ const useUserStore = defineStore(
         const setUser = (user: User) => Object.assign(state, user)
         const resetState = () => Object.keys(state).forEach((key) => (state[key] = null))
         const login = (email: string, pw: string) => {
-            console.log(email, pw)
+            axios.post('/login', { email, pw }).then((res) => {
+                console.log(res)
+            })
         }
 
         return {
