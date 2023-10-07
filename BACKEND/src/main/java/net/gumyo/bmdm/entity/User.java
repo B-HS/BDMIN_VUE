@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
@@ -53,9 +56,11 @@ public class User {
     private String introduce;
 
     @Column
+    @CreatedDate
     private String insertDate;
 
     @Column
+    @LastModifiedDate
     private String lastLogin;
 
     @Enumerated

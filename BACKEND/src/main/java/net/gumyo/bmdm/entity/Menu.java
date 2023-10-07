@@ -27,6 +27,9 @@ public class Menu {
     private Long parentmekey;
 
     @Column
+    private String path;
+
+    @Column
     private Integer meorder;
 
     @Column

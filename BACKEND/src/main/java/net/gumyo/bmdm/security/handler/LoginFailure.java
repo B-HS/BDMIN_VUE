@@ -24,7 +24,7 @@ public class LoginFailure implements AuthenticationFailureHandler {
         Map<String, String> result = new HashMap<>();
         result.put("atk", "");
         result.put("rtk", "");
-
+        response.sendError(HttpServletResponse.SC_FORBIDDEN);
         response.getWriter().write(objectMapper.writeValueAsString(result));
     }
 }

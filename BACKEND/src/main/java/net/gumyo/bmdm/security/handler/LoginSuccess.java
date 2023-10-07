@@ -19,6 +19,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import net.gumyo.bmdm.entity.User;
 import net.gumyo.bmdm.repository.UserRepository;
+import net.gumyo.bmdm.service.menu.MenuService;
 import net.gumyo.bmdm.utils.JwtManager;
 import net.gumyo.bmdm.utils.redis.RedisRepository;
 
@@ -28,6 +29,7 @@ public class LoginSuccess implements AuthenticationSuccessHandler {
     private final UserRepository urepo;
     private final JwtManager jwtManager;
     private final RedisRepository redisManager;
+    private final MenuService mser;
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
@@ -38,12 +40,12 @@ public class LoginSuccess implements AuthenticationSuccessHandler {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         List<String> tokens = jwtManager.tokenGenerator(user.getUrkey(), user.getEmail());
         Map<String, Object> result = new HashMap<>();
-
         urepo.loggedMember(user.getUrkey(), true);
         redisManager.setRefreshToken(tokens.get(1), user.getUrkey());
         result.put("atk", tokens.get(0));
         result.put("rtk", tokens.get(1));
         result.put("userInfo", user.getLoginInfo());
+        result.put("menu", mser.menuListByUrkey(user.getUrkey()));
         response.getWriter().write(objectMapper.writeValueAsString(result));
     }
 }

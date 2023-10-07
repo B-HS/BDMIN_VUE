@@ -9,16 +9,16 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import net.gumyo.bmdm.entity.pks.MexroPk;
+import net.gumyo.bmdm.entity.pks.RoxurPK;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-public class Menubyrole {
+public class RoleByUser {
     @EmbeddedId
-    private MexroPk pk;
+    private RoxurPK pk;
 
     @Column
     @CreatedDate
