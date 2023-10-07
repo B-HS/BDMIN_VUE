@@ -13,6 +13,7 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
             "FROM menu me " +
             "     LEFT OUTER JOIN menubyrole mb " +
             "                  ON me.mekey = mb.mekey " +
-            "WHERE mb.rokey IN :rokey", nativeQuery = true)
+            "WHERE mb.rokey IN :rokey " +
+            "ORDER BY me.parentmekey ASC, me.meorder ASC ", nativeQuery = true)
     List<Menu> getMenuByUserRole(Long[] rokey);
 }
