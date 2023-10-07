@@ -30,6 +30,9 @@ public class Menu {
     private String path;
 
     @Column
+    private String file;
+
+    @Column
     private Integer meorder;
 
     @Column

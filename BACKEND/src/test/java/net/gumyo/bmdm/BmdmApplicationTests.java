@@ -55,10 +55,10 @@ class BmdmApplicationTests {
 		Menu sysMenu = createMenu("SYSTEM", "system", 0, null);
 		sysMenu = merpo.save(sysMenu);
 		List<Menu> menus = List.of(
-				createMenu("MAIN", "main.vue", 0, sysMenu.getMekey()),
-				createMenu("USER", "user.vue", 1, sysMenu.getMekey()),
-				createMenu("ROLE", "role.vue", 2, sysMenu.getMekey()),
-				createMenu("MENU", "menu.vue", 3, sysMenu.getMekey()));
+				createMenu("MAIN", "/system/main", 0, sysMenu.getMekey()),
+				createMenu("USER", "/system/user", 1, sysMenu.getMekey()),
+				createMenu("ROLE", "/system/role", 2, sysMenu.getMekey()),
+				createMenu("MENU", "/system/menu", 3, sysMenu.getMekey()));
 
 		List<Menu> savedMenus = merpo.saveAll(menus);
 		AppRole role = rrepo.save(AppRole.builder().roname("DEFAULT").build());
@@ -68,12 +68,12 @@ class BmdmApplicationTests {
 				menu -> mbrrepo.save(Menubyrole.builder().pk(new MexroPk(role.getRokey(), menu.getMekey())).build()));
 	}
 
-	private Menu createMenu(String name, String path, int order, Long parentKey) {
+	private Menu createMenu(String name, String file, int order, Long parentKey) {
 		return Menu.builder()
 				.mename(name)
 				.cache(true)
 				.hide(false)
-				.path(path)
+				.file(file)
 				.meorder(order)
 				.parentmekey(parentKey)
 				.build();
