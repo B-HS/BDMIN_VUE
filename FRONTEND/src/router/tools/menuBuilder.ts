@@ -41,6 +41,5 @@ export const menuBuilder = async () => {
         nestedMenu.forEach((route) => {
             router.addRoute(route as unknown as RouteRecordRaw)
         })
-        console.log(nestedMenu)
     }
 }
