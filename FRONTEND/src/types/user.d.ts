@@ -13,6 +13,7 @@ interface ServerUserInfo {
 }
 
 export interface MenuItem {
+    name: string
     mekey: number
     mename: string
     parentmekey: number | null
@@ -23,6 +24,7 @@ export interface MenuItem {
     meorder: number | null
     hide: boolean | null
     cache: boolean | null
+    meta: Record<string, unknown>
 }
 
 export interface User {

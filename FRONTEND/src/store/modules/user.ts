@@ -2,9 +2,9 @@ import { defineStore } from 'pinia'
 import { computed, reactive } from 'vue'
 import { axios } from '../../module/axios'
 import { router } from '../../router/router'
+import { menuBuilder } from '../../router/tools/menuBuilder'
 import { User } from '../../types/user'
 import { store } from '../store'
-import { menuBuilder } from '../../router/tools/menuBuilder'
 
 const useUserStore = defineStore(
     'user',
@@ -17,7 +17,14 @@ const useUserStore = defineStore(
             rawMenu: undefined,
         })
 
-        const getState = (target: State) => computed(() => state[target]).value
+        const getState = (target: State) => {
+            const value = computed(() => state[target]).value
+            if (value) return value
+            else {
+                const rawObj = window.localStorage.getItem('user')
+                return rawObj ? JSON.parse(rawObj)[target] : undefined
+            }
+        }
         const setUser = (user: User) => {
             state.atk = user.atk
             state.rtk = user.rtk
@@ -32,14 +39,13 @@ const useUserStore = defineStore(
         }
         const login = async (email: string, pw: string) => {
             const { data } = await axios.post('/login', { email, pw })
-            console.log('logindata', data)
             if (data) {
                 const { atk, rtk, userInfo, menu } = data
                 setUser({ atk, rtk, rawUserInfo: userInfo, rawMenu: menu })
                 router.push('/')
             }
 
-            await menuBuilder()
+            menuBuilder()
         }
 
         return {

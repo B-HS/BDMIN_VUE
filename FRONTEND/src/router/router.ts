@@ -2,6 +2,7 @@ import type { App } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { getEnv } from '../module/env'
 import { defaultRoute } from './routes/default'
+import { menuBuilder } from './tools/menuBuilder'
 import { routerGuard } from './tools/routerGuard'
 
 const router = createRouter({
@@ -11,6 +12,7 @@ const router = createRouter({
 })
 
 const initRouter = (app: App<Element>) => {
+    menuBuilder()?.forEach((val) => router.addRoute(val))
     routerGuard(router)
     app.use(router)
 }

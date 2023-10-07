@@ -1,16 +1,28 @@
 import { RouteRecordRaw } from 'vue-router'
-import { useUserStore } from '../../store/modules/user'
+import { useUserStoreWithoutInit } from '../../store/modules/user'
 import { MenuItem } from '../../types/user'
 import { router } from '../router'
 
-const dynamicMenuImporting = async (menu: MenuItem[]) => {
-    const components = import.meta.glob('../../pages/*.vue')
-    const componentNames = Object.keys(components).map((val) => val.split('/').slice(-1)[0].split('.')[0])
+const dynamicMenuImporting = (menu: MenuItem[]) => {
+    const components = import.meta.glob('../../pages/**/*.vue')
+    const componentNames = Object.keys(components).map((val) => '/' + val.split('../../pages/')[1].split('.vue')[0])
+    console.log(menu)
 
     menu.forEach((val) => {
-        if (componentNames.includes(val.file)) {
-            val.component = components[`../../pages/${val.file}.vue`]
+        val.meta = { isAuthed: true, hide: val.hide, cache: val.cache }
+        if (!val.parentmekey) {
+            val.name = val.mename
+            val.path = val.file
+        } else if (componentNames.includes(val.file)) {
+            console.log('matched')
+
+            val.name = val.file.split('/').splice(-1)[0].split('.vue')[0]
+            val.path = val.file
+            val.component = components[`../../pages${val.file}.vue`]
+            console.log(val.component)
         } else {
+            val.name = val.file.split('/').splice(-1)[0].split('.vue')[0]
+            val.path = ''
             val.component = undefined
         }
     })
@@ -32,14 +44,15 @@ const recursiveMenuMaker = (items: MenuItem[], parentmekey: number | null = null
             return item
         })
 
-export const menuBuilder = async () => {
-    const menu = useUserStore().getState('rawMenu') as object | undefined
+export const menuBuilder = () => {
+    const menu = useUserStoreWithoutInit().getState('rawMenu') as object | undefined
     if (menu) {
         const copiedMenu = JSON.parse(JSON.stringify(menu))
         const menuWithImportedComponent = dynamicMenuImporting(copiedMenu)
-        const nestedMenu = recursiveMenuMaker(await menuWithImportedComponent)
+        const nestedMenu = recursiveMenuMaker(menuWithImportedComponent)
         nestedMenu.forEach((route) => {
             router.addRoute(route as unknown as RouteRecordRaw)
         })
+        return nestedMenu as unknown as RouteRecordRaw[]
     }
 }
