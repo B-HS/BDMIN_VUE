@@ -2,7 +2,7 @@ export const defaultRoute = [
     {
         path: '/',
         name: 'Home',
-        component: () => import('../../layout/layout.vue'),
+        component: () => import('../../pages/home.vue'),
         meta: {
             title: 'HOME',
             isAuthed: true,
