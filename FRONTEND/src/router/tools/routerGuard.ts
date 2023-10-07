@@ -1,4 +1,5 @@
 import { Router } from 'vue-router'
+import { useTabStoreWithoutInit } from '../../store/modules/tab'
 import { useUserStore } from '../../store/modules/user'
 
 interface TOKEN {
@@ -21,6 +22,10 @@ const tokenChecking = (atk: TOKEN | null, rtk: TOKEN | null) => {
 }
 
 export const routerGuard = (router: Router) => {
+    router.afterEach((to, _from, _failure) => {
+        to.meta.cache && useTabStoreWithoutInit().addCache(to.name as string)
+    })
+
     router.beforeEach((to, _from, next) => {
         if (!to.meta.isAuthed) {
             next()

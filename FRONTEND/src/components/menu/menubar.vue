@@ -3,7 +3,7 @@
         class="h-screen transition-all overflow-hidden border-r"
         :style="{ width: useAppstore().getMenuHide() ? '0px' : useAppstore().getMenubarWidth() + 'px' }"
     >
-        <header @click="router.push('/')" class="bg-base-neutral-content p-3 text-center text-xl cursor-pointer">
+        <header @click="router.push({ path: '/' })" class="bg-base-neutral-content p-3 text-center text-xl cursor-pointer">
             {{ title }}
         </header>
         <Menulist />

@@ -1,6 +1,6 @@
 <template>
     <section>
-        <span>menusection</span>
+        <input class="input input-primary" type="text" placeholder="menu" />
     </section>
 </template>
 <script setup lang="ts"></script>
