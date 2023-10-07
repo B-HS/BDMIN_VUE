@@ -1,5 +1,5 @@
 <template>
-    <div class="navbar bg-base-100">
+    <div class="navbar bg-base-100 border-b">
         <div class="navbar-start">
             <button @click="() => menuToggle()" class="btn btn-ghost btn-circle"><Bars3Icon class="text-ghost h-1/2" /></button>
         </div>

@@ -12,8 +12,22 @@ interface ServerUserInfo {
     urname: string
 }
 
+export interface MenuItem {
+    mekey: number
+    mename: string
+    parentmekey: number | null
+    component?: Function
+    children?: MenuItem[]
+    path: string
+    file: string
+    meorder: number | null
+    hide: boolean | null
+    cache: boolean | null
+}
+
 export interface User {
     atk?: string
     rtk?: string
     rawUserInfo?: ServerUserInfo
+    rawMenu?: MenuItem
 }
