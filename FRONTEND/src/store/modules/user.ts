@@ -1,30 +1,43 @@
 import { defineStore } from 'pinia'
 import { computed, reactive } from 'vue'
 import { axios } from '../../module/axios'
+import { router } from '../../router/router'
 import { User } from '../../types/user'
 import { store } from '../store'
 
 const useUserStore = defineStore(
-    'userstore',
+    'user',
     () => {
         type State = keyof typeof state
         const state = reactive<User>({
-            id: null,
-            pw: null,
-            role: null,
-            token: null,
-        }) as Record<string, User | null>
+            atk: undefined,
+            rtk: undefined,
+            rawUserInfo: undefined,
+        })
 
         const getState = (target: State) => computed(() => state[target]).value
-        const setUser = (user: User) => Object.assign(state, user)
-        const resetState = () => Object.keys(state).forEach((key) => (state[key] = null))
-        const login = (email: string, pw: string) => {
-            axios.post('/login', { email, pw }).then((res) => {
-                console.log(res)
-            })
+        const setUser = (user: User) => {
+            state.atk = user.atk
+            state.rtk = user.rtk
+            state.rawUserInfo = user.rawUserInfo
+        }
+        const resetState = () => {
+            state.atk = undefined
+            state.rtk = undefined
+            state.rawUserInfo = undefined
+        }
+        const login = async (email: string, pw: string) => {
+            const { data } = await axios.post('/login', { email, pw })
+            console.log('logindata', data)
+            if (data) {
+                const { atk, rtk, userInfo } = data
+                setUser({ atk, rtk, rawUserInfo: userInfo })
+                router.push('/')
+            }
         }
 
         return {
+            state,
             getState,
             setUser,
             resetState,

@@ -1,4 +1,5 @@
 import { Router } from 'vue-router'
+import { useUserStore } from '../../store/modules/user'
 
 interface TOKEN {
     iss: string
@@ -26,8 +27,8 @@ export const routerGuard = (router: Router) => {
             return
         }
 
-        const rawAtk = localStorage.getItem('atk')
-        const rawRtk = localStorage.getItem('rtk')
+        const rawAtk = useUserStore().getState('atk') as string | undefined
+        const rawRtk = useUserStore().getState('rtk') as string | undefined
 
         if (!rawAtk || !rawRtk) {
             next('/login')

@@ -1,6 +1,19 @@
+interface Token {
+    atk: string
+    rtk: string
+}
+interface ServerUserInfo {
+    email: string
+    introduce: string
+    lastLogin: string | Date
+    nickname: string
+    roles: string[]
+    urkey: number
+    urname: string
+}
+
 export interface User {
-    id: string | null
-    pw: string | null
-    role: string[] | null
-    token: string | null
+    atk?: string
+    rtk?: string
+    rawUserInfo?: ServerUserInfo
 }
