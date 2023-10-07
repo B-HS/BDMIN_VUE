@@ -3,7 +3,7 @@ import { computed, reactive } from 'vue'
 import { axios } from '../../module/axios'
 import { router } from '../../router/router'
 import { menuBuilder } from '../../router/tools/menuBuilder'
-import { User } from '../../types/user'
+import { MenuItem, User } from '../../types/user'
 import { store } from '../store'
 
 const useUserStore = defineStore(
@@ -15,6 +15,7 @@ const useUserStore = defineStore(
             rtk: undefined,
             rawUserInfo: undefined,
             rawMenu: undefined,
+            refectoredMenu: undefined,
         })
 
         const getState = (target: State) => {
@@ -25,6 +26,10 @@ const useUserStore = defineStore(
                 return rawObj ? JSON.parse(rawObj)[target] : undefined
             }
         }
+
+        const setRefectoredMenu = (menu: MenuItem[]) => (state.refectoredMenu = menu)
+        const getRefectoredMenu = () => computed(() => state.refectoredMenu).value
+
         const setUser = (user: User) => {
             state.atk = user.atk
             state.rtk = user.rtk
@@ -36,7 +41,9 @@ const useUserStore = defineStore(
             state.rtk = undefined
             state.rawUserInfo = undefined
             state.rawMenu = undefined
+            state.refectoredMenu = undefined
         }
+
         const login = async (email: string, pw: string) => {
             const { data } = await axios.post('/login', { email, pw })
             if (data) {
@@ -54,17 +61,12 @@ const useUserStore = defineStore(
             setUser,
             resetState,
             login,
+            setRefectoredMenu,
+            getRefectoredMenu,
         }
     },
     {
-        persist: {
-            storage: localStorage,
-            serializer: {
-                // TODO 함수 포함 + key값에 따른 구문 암호화 가능한 serializer/deserializer 구현 필요
-                serialize: (state) => JSON.stringify(state),
-                deserialize: (state) => JSON.parse(state),
-            },
-        },
+        persist: true,
     },
 )
 

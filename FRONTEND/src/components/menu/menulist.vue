@@ -1,21 +1,10 @@
 <template>
-    <ul class="menu w-full">
-        <li><a>Item 1</a></li>
-        <li>
-            <a>Parent</a>
-            <ul>
-                <li><a>level 2 item 1</a></li>
-                <li><a>level 2 item 2</a></li>
-                <li>
-                    <a>Parent</a>
-                    <ul>
-                        <li><a>level 3 item 1</a></li>
-                        <li><a>level 3 item 2</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-        <li><a>Item 3</a></li>
+    <ul class="menu w-full menu-dropdown-toggle">
+        <Menuitem v-for="item in menuItems" :key="item.mekey" :item="item" />
     </ul>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useUserStore } from '../../store/modules/user'
+import Menuitem from './menuitem.vue'
+const menuItems = useUserStore().getRefectoredMenu()
+</script>

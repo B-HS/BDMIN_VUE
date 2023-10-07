@@ -18,8 +18,8 @@
 </template>
 <script setup lang="ts">
 import { Bars3Icon, BellIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/solid'
-import { useAppstore } from '../../store/modules/app'
 import { router } from '../../router/router'
+import { useAppstore } from '../../store/modules/app'
 
 const menuToggle = () => useAppstore().setMenuHide(!useAppstore().getMenuHide())
 </script>

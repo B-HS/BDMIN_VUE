@@ -7,7 +7,7 @@ const dynamicMenuImporting = (menu: MenuItem[]) => {
     const components = import.meta.glob('../../pages/**/*.vue')
     const componentNames = Object.keys(components).map((val) => '/' + val.split('../../pages/')[1].split('.vue')[0])
     menu.forEach((val) => {
-        val.meta = { isAuthed: true, hide: val.hide, cache: val.cache }
+        val.meta = { isAuthed: true, hide: val.hide, cache: val.cache, title: val.mename }
         if (!val.parentmekey) {
             val.name = val.mename
             val.path = val.file
@@ -45,6 +45,8 @@ export const menuBuilder = () => {
         const copiedMenu = JSON.parse(JSON.stringify(menu))
         const menuWithImportedComponent = dynamicMenuImporting(copiedMenu)
         const nestedMenu = recursiveMenuMaker(menuWithImportedComponent)
+        useUserStoreWithoutInit().setRefectoredMenu(JSON.parse(JSON.stringify([...nestedMenu])))
+
         nestedMenu.forEach((route) => {
             router.addRoute(route as unknown as RouteRecordRaw)
         })

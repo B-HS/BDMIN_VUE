@@ -32,4 +32,5 @@ export interface User {
     rtk?: string
     rawUserInfo?: ServerUserInfo
     rawMenu?: MenuItem
+    refectoredMenu?: MenuItem[]
 }
