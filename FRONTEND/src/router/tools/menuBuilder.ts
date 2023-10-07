@@ -6,20 +6,15 @@ import { router } from '../router'
 const dynamicMenuImporting = (menu: MenuItem[]) => {
     const components = import.meta.glob('../../pages/**/*.vue')
     const componentNames = Object.keys(components).map((val) => '/' + val.split('../../pages/')[1].split('.vue')[0])
-    console.log(menu)
-
     menu.forEach((val) => {
         val.meta = { isAuthed: true, hide: val.hide, cache: val.cache }
         if (!val.parentmekey) {
             val.name = val.mename
             val.path = val.file
         } else if (componentNames.includes(val.file)) {
-            console.log('matched')
-
             val.name = val.file.split('/').splice(-1)[0].split('.vue')[0]
             val.path = val.file
             val.component = components[`../../pages${val.file}.vue`]
-            console.log(val.component)
         } else {
             val.name = val.file.split('/').splice(-1)[0].split('.vue')[0]
             val.path = ''
