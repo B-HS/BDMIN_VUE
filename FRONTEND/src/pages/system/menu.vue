@@ -1,7 +1,7 @@
 <template>
     <section>
         <Card>
-            <input value="menuuuuu" />
+            <input value="" />
         </Card>
     </section>
 </template>

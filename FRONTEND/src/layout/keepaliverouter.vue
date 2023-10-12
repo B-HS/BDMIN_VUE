@@ -18,7 +18,7 @@ const cachedView = computed(() => useTabStoreWithoutInit().getCacheList())
 <style>
 .scale-enter-active,
 .scale-leave-active {
-    transition: all 0.15s ease;
+    transition: all 0.125s ease-in-out;
 }
 
 .scale-enter-from,

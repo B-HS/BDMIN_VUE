@@ -4,7 +4,9 @@
             <button class="btn btn-outline rounded-none btn-xs px-1 border-r-0" @click="router.push({ name: item })" :key="item">
                 {{ item }}
             </button>
-            <button class="btn btn-outline rounded-none btn-xs px-0.5 border-l-0"><XMarkIcon class="w-3" /></button>
+            <button class="btn btn-outline rounded-none btn-xs px-0.5 border-l-0" @click="useTabStore().removeCache(item)">
+                <XMarkIcon class="w-3" />
+            </button>
         </section>
     </section>
 </template>
