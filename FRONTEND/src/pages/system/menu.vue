@@ -1,6 +1,10 @@
 <template>
     <section>
-        <input class="input input-primary" type="text" placeholder="menu" />
+        <Card>
+            <input value="menuuuuu" />
+        </Card>
     </section>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Card from '../../components/card.vue'
+</script>
