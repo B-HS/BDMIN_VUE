@@ -52,7 +52,7 @@ const findBreadcrumbPath = (menu: MenuItem[], targetName: string, path = ''): st
     return null
 }
 onMounted(() => {
-    findBreadcrumbPath(useUserStore().getRefectoredMenu() as MenuItem[], router.currentRoute.value.name as string)
+    breadcrumbs.value = findBreadcrumbPath(useUserStore().getRefectoredMenu() as MenuItem[], router.currentRoute.value.name as string)
 })
 
 watch(
