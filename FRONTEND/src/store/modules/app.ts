@@ -6,14 +6,16 @@ import { store } from '../store'
 const useAppstore = defineStore(
     'appSetting',
     () => {
-        const state = reactive<appSetting>({
+        const nonePersistState = reactive({
             isLoading: false,
+        })
+        const state = reactive<appSetting>({
             menubarWidth: 250,
             menubarHide: false,
         })
 
-        const getPageLoading = () => computed(() => state.isLoading).value
-        const setPageLoading = (isLoading: boolean) => Object.assign(state, { isLoading })
+        const getPageLoading = () => nonePersistState.isLoading
+        const setPageLoading = (isLoading: boolean) => (nonePersistState.isLoading = isLoading)
 
         const getMenubarWidth = () => computed(() => state.menubarWidth).value
         const setMenubarWidth = (width: number) => (state.menubarWidth = width)
