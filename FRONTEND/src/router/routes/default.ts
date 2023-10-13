@@ -18,6 +18,15 @@ export const defaultRoute = [
         },
     },
     {
+        path: '/refresh',
+        name: 'Refresh',
+        component: () => import('../../pages/refresh/refresh.vue'),
+        meta: {
+            title: 'Refreshing...',
+            isAuthed: true,
+        },
+    },
+    {
         path: '/404',
         name: 'Not found',
         component: () => import('../../pages/404.vue'),
