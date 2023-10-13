@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { computed, reactive } from 'vue'
+import { router } from '../../router/router'
 import { store } from '../store'
 
 const useTabStore = defineStore('tab', () => {
@@ -9,7 +10,12 @@ const useTabStore = defineStore('tab', () => {
 
     const addCache = (menuname: string) => (state.cachedTab = [...new Set([...state.cachedTab, menuname])])
     const getCacheList = () => computed(() => state.cachedTab).value
-    const removeCache = (menuname: string) => (state.cachedTab = state.cachedTab.filter((item) => item !== menuname))
+    const removeCache = (menuname: string) => {
+        const leftTab = state.cachedTab[state.cachedTab.indexOf(menuname) - 1]
+        const rightTab = state.cachedTab[state.cachedTab.indexOf(menuname) + 1]
+        state.cachedTab = state.cachedTab.filter((item) => item !== menuname)
+        router.push({ name: leftTab || rightTab || 'Home' })
+    }
 
     return {
         state,
