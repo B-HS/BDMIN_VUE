@@ -1,5 +1,5 @@
 <template>
-    <Layout />
+    <Layout class="min-w-[325px] overflow-hidden" />
 </template>
 
 <script setup lang="ts">
