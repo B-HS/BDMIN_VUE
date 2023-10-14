@@ -20,18 +20,27 @@ dependencies:
   eslint-config-prettier:
     specifier: ^9.0.0
     version: 9.0.0(eslint@8.50.0)
+  i:
+    specifier: ^0.3.7
+    version: 0.3.7
   pinia:
     specifier: ^2.1.6
     version: 2.1.6(typescript@5.1.6)(vue@3.3.4)
   pinia-plugin-persistedstate:
     specifier: ^3.2.0
     version: 3.2.0(pinia@2.1.6)
+  pnpm:
+    specifier: ^8.9.0
+    version: 8.9.0
   prettier:
     specifier: ^3.0.3
     version: 3.0.3
   sass:
     specifier: ^1.66.1
     version: 1.66.1
+  theme-change:
+    specifier: ^2.5.0
+    version: 2.5.0
   vue:
     specifier: ^3.3.4
     version: 3.3.4
@@ -1768,6 +1777,11 @@ packages:
     hasBin: true
     dev: true
 
+  /i@0.3.7:
+    resolution: {integrity: sha512-FYz4wlXgkQwIPqhzC5TdNMLSE5+GS1IIDJZY/1ZiEPCT2S3COUVZeT5OW4BmW4r5LHLQuOosSwsvnroG9GR59Q==}
+    engines: {node: '>=0.4'}
+    dev: false
+
   /ignore@5.2.4:
     resolution: {integrity: sha512-MAb38BcSbH0eHNBxn7ql2NH/kX33OkB3lZ1BNdh7ENeRChHTYsTvWrMubiIAMNS2llXEEgZ1MUOBtXChP3kaFQ==}
     engines: {node: '>= 4'}
@@ -2347,6 +2361,12 @@ packages:
     engines: {node: '>= 6'}
     dev: true
 
+  /pnpm@8.9.0:
+    resolution: {integrity: sha512-74hZk44fBTe5/PAwkEQxE5Lzs4s0QXbmzU/e4hsiVSSwrCobCK4q4t3Vs/9LjKSW1neOlQ8+fJ9VW4EyWYJEHA==}
+    engines: {node: '>=16.14'}
+    hasBin: true
+    dev: false
+
   /postcss-import@15.1.0(postcss@8.4.28):
     resolution: {integrity: sha512-hpr+J05B2FVYUAXHeK1YyI267J/dDDhMU6B6civm8hSY1jYJnBXxzKDKDswzJmtLHryrjhnDjqqp/49t8FALew==}
     engines: {node: '>=14.0.0'}
@@ -2742,6 +2762,10 @@ packages:
 
   /text-table@0.2.0:
     resolution: {integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==}
+    dev: false
+
+  /theme-change@2.5.0:
+    resolution: {integrity: sha512-B/UdsgdHAGhSKHTAQnxg/etN0RaMDpehuJmZIjLMDVJ6DGIliRHGD6pODi1CXLQAN9GV0GSyB3G6yCuK05PkPQ==}
     dev: false
 
   /thenify-all@1.6.0:

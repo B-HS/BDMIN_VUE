@@ -14,10 +14,13 @@
     "eslint": "^8.50.0",
     "eslint-config-next": "^13.5.4",
     "eslint-config-prettier": "^9.0.0",
+    "i": "^0.3.7",
     "pinia": "^2.1.6",
     "pinia-plugin-persistedstate": "^3.2.0",
+    "pnpm": "^8.9.0",
     "prettier": "^3.0.3",
     "sass": "^1.66.1",
+    "theme-change": "^2.5.0",
     "vue": "^3.3.4",
     "vue-router": "4",
     "vue3-easy-data-table": "^1.5.47"
