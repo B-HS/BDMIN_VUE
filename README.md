@@ -25,3 +25,6 @@
 
 # 기간
 ~ 내년 2월
+
+# 포스팅
+- [[B_CMS] vue의 keep-alive를 사용해보자 feat. vue-router](https://hbyun.tistory.com/255)
