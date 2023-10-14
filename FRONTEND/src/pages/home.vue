@@ -1,4 +1,3 @@
-import { router } from '../router/router';
 <template>
     <section>
         <button class="btn btn-sm" @click="showAllRotue">ROUTE LIST</button>
