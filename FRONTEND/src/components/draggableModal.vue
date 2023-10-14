@@ -13,7 +13,7 @@
             </section>
 
             <section class="modal-body p-5 px-7">
-                <slot name="body"></slot>
+                <slot></slot>
             </section>
 
             <section class="modal-footer px-5 py-3 flex justify-end" v-if="props.footer">
