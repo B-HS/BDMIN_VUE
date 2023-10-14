@@ -16,41 +16,30 @@
             </div>
         </div>
         <div class="navbar-end">
-            <button class="btn btn-ghost">
+            <button class="btn btn-ghost" @click="() => searchModal.open()">
                 <MagnifyingGlassIcon class="text-ghost h-1/2" />
             </button>
             <button class="btn btn-ghost">
                 <BellIcon class="text-ghost h-1/2" />
             </button>
         </div>
+        <SearchModal ref="searchModal" />
     </div>
 </template>
 <script setup lang="ts">
 import { Bars3Icon, BellIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/solid'
 import { onMounted, ref, watch } from 'vue'
+import { findBreadcrumbPath } from '../../module/breadCrumble'
 import { router } from '../../router/router'
 import { useAppstore } from '../../store/modules/app'
 import { useUserStore } from '../../store/modules/user'
 import { MenuItem } from '../../types/user'
+import SearchModal from '../menusearch/searchModal.vue'
 
+const searchModal = ref()
 const breadcrumbs = ref()
 const menuToggle = () => useAppstore().setMenuHide(!useAppstore().getMenuHide())
-const findBreadcrumbPath = (menu: MenuItem[], targetName: string, path = ''): string[] | null => {
-    for (const item of menu) {
-        const currentPath = path === '' ? item.name : `${path}/${item.meta.title}`
-        if (item.name === targetName) {
-            return currentPath.split('/')
-        }
 
-        if (item.children) {
-            const result = findBreadcrumbPath(item.children, targetName, currentPath)
-            if (result) {
-                return result && result
-            }
-        }
-    }
-    return null
-}
 onMounted(() => {
     breadcrumbs.value = findBreadcrumbPath(useUserStore().getRefectoredMenu() as MenuItem[], router.currentRoute.value.name as string)
 })
