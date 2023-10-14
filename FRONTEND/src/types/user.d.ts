@@ -25,6 +25,7 @@ export interface MenuItem {
     hide: boolean | null
     cache: boolean | null
     meta: Record<string, unknown>
+    raw?: Record<string, string>
 }
 
 export interface User {

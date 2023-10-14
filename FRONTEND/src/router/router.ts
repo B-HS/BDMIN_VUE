@@ -12,7 +12,7 @@ const router = createRouter({
 })
 
 const initRouter = (app: App<Element>) => {
-    menuBuilder()?.forEach((val) => router.addRoute(val))
+    menuBuilder(router)
     routerGuard(router)
     app.use(router)
 }
