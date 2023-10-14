@@ -44,8 +44,8 @@ export const menuBuilder = (routerObj?: Router) => {
     const menu = useUserStoreWithoutInit().getState('rawMenu') as object | undefined
     if (menu) {
         const copiedMenu = JSON.parse(JSON.stringify(menu))
-        const menuWithImportedComponent = dynamicMenuImporting(JSON.parse(JSON.stringify(copiedMenu)))
-        const nestedMenu = recursiveMenuMaker(JSON.parse(JSON.stringify(menuWithImportedComponent)))
+        const menuWithImportedComponent = dynamicMenuImporting(copiedMenu)
+        const nestedMenu = recursiveMenuMaker(menuWithImportedComponent)
         useUserStoreWithoutInit().setRefectoredMenu(JSON.parse(JSON.stringify([...nestedMenu])))
 
         nestedMenu?.forEach((route) => {
