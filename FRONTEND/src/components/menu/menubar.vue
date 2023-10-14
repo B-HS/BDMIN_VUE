@@ -6,7 +6,7 @@
             minWidth: useAppstore().getMenuHide() ? '0px' : isUnder640 ? useAppstore().getMenubarWidth() + 'px' : 0,
         }"
     >
-        <header @click="router.push({ path: '/' })" class="bg-base-neutral-content p-3 text-center text-xl cursor-pointer">
+        <header @click="router.push({ path: '/' })" class="bg-base-neutral-content p-3 text-center text-2xl font-bold cursor-pointer">
             {{ title }}
         </header>
         <Menulist />
