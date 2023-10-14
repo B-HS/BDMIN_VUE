@@ -3,17 +3,13 @@
         <input v-model="state.searchValue" type="text" class="input input-bordered w-full mb-5" />
         <section class="flex flex-col gap-3">
             <div
-                class="breadcrumbs border rounded p-3 hover:bg-base-300 transition-all"
+                class="breadcrumbs border rounded p-3 hover:bg-base-300 transition-all cursor-pointer"
                 v-for="bread in searchedList"
                 :key="bread.path"
                 @click="() => go(bread.path)"
             >
                 <ul>
-                    <li
-                        class="overflow-hidden cursor-pointer"
-                        v-for="item in findBreadcrumbPath(useUserStore().getRefectoredMenu() as MenuItem[], bread.name as string)"
-                        :key="item"
-                    >
+                    <li v-for="item in findBreadcrumbPath(useUserStore().getRefectoredMenu() as MenuItem[], bread.name as string)" :key="item">
                         <span class="normal-case text-xl font-bold">{{ item }}</span>
                     </li>
                 </ul>
