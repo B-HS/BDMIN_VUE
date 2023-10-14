@@ -1,7 +1,7 @@
 <template>
     <div class="navbar bg-base-100 border-b">
         <div class="navbar-start">
-            <button @click="() => menuToggle()" class="btn btn-ghost btn-circle"><Bars3Icon class="text-ghost h-1/2" /></button>
+            <button @click="() => menuToggle()" class="btn btn-ghost"><Bars3Icon class="text-ghost h-1/2" /></button>
         </div>
         <div class="navbar-center">
             <span class="normal-case text-xl font-bold" v-if="router.currentRoute.value.meta.title === 'HOME'">{{
@@ -16,10 +16,10 @@
             </div>
         </div>
         <div class="navbar-end">
-            <button class="btn btn-ghost btn-circle">
+            <button class="btn btn-ghost">
                 <MagnifyingGlassIcon class="text-ghost h-1/2" />
             </button>
-            <button class="btn btn-ghost btn-circle">
+            <button class="btn btn-ghost">
                 <BellIcon class="text-ghost h-1/2" />
             </button>
         </div>
