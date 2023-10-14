@@ -1,18 +1,19 @@
 <template>
     <section>
-        <button class="btn btn-outline btn-sm rounded-none border-none" @click="themeModal.show">
+        <button class="tooltip btn btn-outline btn-sm rounded-none border-none" @click="themeModal.show" data-tip="Themes">
             <PaintBrushIcon class="w-5" />
         </button>
         <DraggableModal ref="themeModal" :title="'Theme'" key="thememodal">
-            <section class="btns grid grid-cols-3 gap-3">
-                <button
-                    class="btn btn-outline"
+            <section class="grid grid-cols-3 gap-3">
+                <section
+                    class="btns py-2 p-5 border-1 border-black border rounded"
                     v-for="item in Object.keys(daisyuiColors)"
-                    :data-set-theme="getThemeName(item as DataThemeKeys)"
                     :data-theme="getThemeName(item as DataThemeKeys)"
                 >
-                    {{ getThemeName(item as DataThemeKeys) }}
-                </button>
+                    <button class="btn btn-outline w-full" :data-set-theme="getThemeName(item as DataThemeKeys)">
+                        {{ getThemeName(item as DataThemeKeys) }}
+                    </button>
+                </section>
             </section>
         </DraggableModal>
     </section>
