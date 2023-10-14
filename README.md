@@ -20,7 +20,8 @@
 # 진행 과제
 1. 사용자 알람(ws)
 2. 로그아웃로직
-
+3. 서버사이드 i18n
+4. github action + aws lightsail 자동배포
 
 # 기간
 ~ 내년 2월
