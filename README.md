@@ -14,7 +14,8 @@
 6. 테마 프리셋(DasyUI Themes / https://daisyui.com/docs/themes/)
 
 # 진행 중
-1. 서버사이드 i18n
+1. 서버사이드 i18n / 언어 선택
+2. 전체 새로고침 시에 다시 불러올 로직 설정
 
 # 진행 과제
 1. 사용자 알람(ws)
