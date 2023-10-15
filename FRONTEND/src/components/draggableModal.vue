@@ -27,7 +27,7 @@
         </form>
     </dialog>
 </template>
-<script setup lang="ts" generic="T extends string | number, U extends { footer: T[] | U; body: T | U }">
+<script setup lang="ts">
 import { XMarkIcon } from '@heroicons/vue/24/solid'
 import { reactive, ref } from 'vue'
 
