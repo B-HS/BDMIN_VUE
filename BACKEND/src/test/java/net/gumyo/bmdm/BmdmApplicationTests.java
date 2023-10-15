@@ -43,7 +43,7 @@ class BmdmApplicationTests {
 				.builder()
 				.urname("admin")
 				.urnickname("bmdm")
-				.email("hs@gumyo.net")
+				.email("hs")
 				.pw(passwordEncoder.encode("1234"))
 				.isAuthed(true)
 				.isDisabled(false)
@@ -52,13 +52,14 @@ class BmdmApplicationTests {
 				.isDeleted(false)
 				.roles(Set.of(Role.ADMIN, Role.USER))
 				.build());
-		Menu sysMenu = createMenu("SYSTEM", "system", 0, null);
+		Menu sysMenu = createMenu("SYSTEM", "/system", 0, null);
 		sysMenu = merpo.save(sysMenu);
 		List<Menu> menus = List.of(
 				createMenu("MAIN", "/system/main", 0, sysMenu.getMekey()),
 				createMenu("USER", "/system/user", 1, sysMenu.getMekey()),
 				createMenu("ROLE", "/system/role", 2, sysMenu.getMekey()),
-				createMenu("MENU", "/system/menu", 3, sysMenu.getMekey()));
+				createMenu("MENU", "/system/menu", 3, sysMenu.getMekey()),
+				createMenu("LOCALE", "/system/locale", 5, sysMenu.getMekey()));
 
 		List<Menu> savedMenus = merpo.saveAll(menus);
 		AppRole role = rrepo.save(AppRole.builder().roname("DEFAULT").build());
