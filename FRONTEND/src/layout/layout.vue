@@ -2,7 +2,7 @@
     <section v-if="!router.currentRoute.value.meta.isAuthed">
         <Keepaliverouter />
     </section>
-    <section class="flex items-start" v-else>
+    <section class="flex items-start h-screen" v-else>
         <Menubar />
         <section class="flex-1">
             <Navibar />
