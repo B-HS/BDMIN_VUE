@@ -14,14 +14,12 @@
 6. 테마 프리셋(DasyUI Themes / https://daisyui.com/docs/themes/)
 
 # 진행 중
-1. 커스터마이징 가능한 레이아웃(좌측메뉴, 상단메뉴)
-
+1. 서버사이드 i18n
 
 # 진행 과제
 1. 사용자 알람(ws)
 2. 로그아웃로직
-3. 서버사이드 i18n
-4. github action + aws lightsail 자동배포
+3. github action + aws lightsail 자동배포
 
 # 기간
 ~ 내년 2월
