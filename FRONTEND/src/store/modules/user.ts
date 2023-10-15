@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { computed, reactive } from 'vue'
-import { axios } from '../../module/axios'
+import { requestLoginInfo } from '../../api/user'
 import { router } from '../../router/router'
 import { menuBuilder } from '../../router/tools/menuBuilder'
 import { MenuItem, User } from '../../types/user'
@@ -45,7 +45,7 @@ const useUserStore = defineStore(
         }
 
         const login = async (email: string, pw: string) => {
-            const { data } = await axios.post('/login', { email, pw })
+            const { data } = await requestLoginInfo(email, pw)
             if (data) {
                 const { atk, rtk, userInfo, menu } = data
                 setUser({ atk, rtk, rawUserInfo: userInfo, rawMenu: menu })
