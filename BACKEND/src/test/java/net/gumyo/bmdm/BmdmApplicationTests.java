@@ -55,7 +55,6 @@ class BmdmApplicationTests {
 		Menu sysMenu = createMenu("SYSTEM", "/system", 0, null);
 		sysMenu = merpo.save(sysMenu);
 		List<Menu> menus = List.of(
-				createMenu("MAIN", "/system/main", 0, sysMenu.getMekey()),
 				createMenu("USER", "/system/user", 1, sysMenu.getMekey()),
 				createMenu("ROLE", "/system/role", 2, sysMenu.getMekey()),
 				createMenu("MENU", "/system/menu", 3, sysMenu.getMekey()),
