@@ -10,8 +10,5 @@ import { router } from '../router/router'
 const state = reactive({
     routelist: null as object[] | null,
 })
-const showAllRotue = () => {
-    console.log(router.getRoutes())
-    state.routelist = router.getRoutes()
-}
+const showAllRotue = () => (state.routelist = router.getRoutes())
 </script>

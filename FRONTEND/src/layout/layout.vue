@@ -4,10 +4,10 @@
     </section>
     <section class="flex items-start h-screen" v-else>
         <Menubar />
-        <section class="flex-1">
+        <section class="h-full flex-1 flex flex-col">
             <Navibar />
             <Tab />
-            <section class="p-3">
+            <section class="p-3 flex-1">
                 <Keepaliverouter />
             </section>
         </section>
