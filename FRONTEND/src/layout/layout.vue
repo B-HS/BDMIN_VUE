@@ -1,8 +1,10 @@
 <template>
     <section v-if="!router.currentRoute.value.meta.isAuthed">
+        <Loading />
         <Keepaliverouter />
     </section>
     <section class="flex items-start h-screen" v-else>
+        <Loading />
         <Menubar />
         <section class="h-full flex-1 flex flex-col">
             <Navibar />
@@ -15,6 +17,7 @@
 </template>
 
 <script setup lang="ts">
+import Loading from '../components/loading.vue'
 import Menubar from '../components/menu/menubar.vue'
 import Navibar from '../components/navigator/navibar.vue'
 import Tab from '../components/navigator/tab.vue'
