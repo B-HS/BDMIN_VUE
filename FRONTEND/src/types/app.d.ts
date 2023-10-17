@@ -5,7 +5,9 @@ export interface appSetting {
 }
 
 export interface locale {
-    msg_key: string
-    lang_type: 'KR' | 'JP' | 'EN'
-    trtext: string
+    msgKey: string
+    ko_text: string
+    jp_text: string
+    en_text: string
+    added?: boolean
 }

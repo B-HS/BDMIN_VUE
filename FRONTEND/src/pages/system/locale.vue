@@ -1,11 +1,25 @@
 <template>
     <section class="h-full flex flex-col">
         <Card class="flex gap-2 justify-end">
-            <button class="btn btn-primary btn-xs" @click="getTrtext">SEARCH</button>
-            <button class="btn btn-primary btn-xs" @click="addRow">ADD</button>
-            <button class="btn btn-primary btn-xs">DELETE</button>
-            <button class="btn btn-primary btn-xs" @click="handleExternalButtonClick">SAVE</button>
+            <button class="btn btn-primary btn-xs" @click="getTrtext">{{ t('SEARCH') }}</button>
+            <button class="btn btn-primary btn-xs" @click="addRow">{{ t('ADD') }}</button>
+            <button class="btn btn-primary btn-xs" @click="deleteRow">{{ t('DELETE') }}</button>
+            <button class="btn btn-primary btn-xs" @click="handleExternalButtonClick">{{ t('SAVE') }}</button>
         </Card>
+        <div
+            class="w-full p-0 border-0 alert alert-success max-h-0 overflow-hidden transition-all flex justify-between"
+            :class="[{ 'p-3': state.isSuccessedToast }, { 'max-h-fit': state.isSuccessedToast }, { 'my-2': state.isSuccessedToast }]"
+        >
+            <span>{{ t('SAVE_SUCCESS') }}</span>
+            <XMarkIcon class="h-5" @click="() => (state.isSuccessedToast = false)" />
+        </div>
+        <div
+            class="w-full p-0 border-0 alert alert-error max-h-0 overflow-hidden transition-all flex justify-between"
+            :class="[{ 'p-3': state.isFailedToast }, { 'max-h-fit': state.isFailedToast }, { 'my-2': state.isFailedToast }]"
+        >
+            <span>{{ t('SAVE_FAIL') }}</span>
+            <XMarkIcon class="h-5" @click="() => (state.isFailedToast = false)" />
+        </div>
         <AGGrid
             class="ag-theme-alpine h-full"
             ref="grid"
@@ -14,13 +28,16 @@
             @grid-ready="onGridReady"
             :columnDefs="columnDefs"
             :rowData="gridData"
+            :overlayNoRowsTemplate="t('GRID_NO_DATA')"
         />
     </section>
 </template>
 <script setup lang="ts">
+import { XMarkIcon } from '@heroicons/vue/24/solid'
 import { AgGridVue as AGGrid } from 'ag-grid-vue3'
 import { computed, reactive, ref } from 'vue'
-import { requestFullLocaleList } from '../../api/locale'
+import { useI18n } from 'vue-i18n'
+import { deleteLocale, requestFullLocaleList, saveLocale } from '../../api/locale'
 import Card from '../../components/card.vue'
 import { locale } from '../../types/app'
 
@@ -32,10 +49,7 @@ interface column {
     editable: boolean
 }
 
-interface rowData {
-    id: number
-    msg_key: string
-    lang_type: string
+interface rowData extends locale {
     trtext: string
     new: boolean | string
     updated: boolean | string
@@ -43,42 +57,55 @@ interface rowData {
 }
 
 interface gridData {
-    addedRows: rowData[]
-    updatedRows: rowData[]
-    deletedRows: rowData[]
+    addedRows: Partial<rowData>[]
+    updatedRows: Partial<rowData>[]
+    deletedRows: Partial<rowData>[]
     gridData: Partial<rowData>[]
+    isFailedToast: boolean
+    isSuccessedToast: boolean
 }
 const grid = ref()
+const { t } = useI18n()
 
 const addRow = () => {
-    state.gridData = [...state.gridData, { new: false }]
+    state.gridData = [...state.gridData, { new: true }]
 }
 
-const onUpdate = (param: any) => {
+const onUpdate = (param: any, own: string) => {
     if (!param.data.new) {
         param.data.updated = true
     }
-    return param.data.msg_key
+    return param.data[own]
+}
+
+const deleteRow = () => {
+    state.gridData[gridApi.getFocusedCell().rowIndex].deleted = true
 }
 const columnDefs = ref<Partial<column>[]>([
     { headerName: 'ID', valueGetter: 'node.id', width: 55 },
     {
-        headerName: 'MSG_KEY',
-        field: 'msg_key',
+        headerName: t('MSG_KEY'),
+        field: 'msgKey',
         editable: true,
-        valueGetter: onUpdate,
+        valueGetter: (param: any) => onUpdate(param, 'msgKey'),
     },
     {
-        headerName: 'LANG_TYPE',
-        field: 'lang_type',
+        headerName: t('KO_TEXT'),
+        field: 'ko_text',
         editable: true,
-        valueGetter: onUpdate,
+        valueGetter: (param: any) => onUpdate(param, 'ko_text'),
     },
     {
-        headerName: 'TRTEXT',
-        field: 'trtext',
+        headerName: t('JP_TEXT'),
+        field: 'jp_text',
         editable: true,
-        valueGetter: onUpdate,
+        valueGetter: (param: any) => onUpdate(param, 'jp_text'),
+    },
+    {
+        headerName: t('EN_TEXT'),
+        field: 'en_text',
+        editable: true,
+        valueGetter: (param: any) => onUpdate(param, 'en_text'),
     },
 ])
 
@@ -87,6 +114,8 @@ const state = reactive<gridData>({
     updatedRows: [],
     deletedRows: [],
     gridData: [],
+    isFailedToast: false,
+    isSuccessedToast: false,
 })
 const gridData = computed(() => state.gridData.filter((item) => !item.deleted))
 
@@ -96,21 +125,44 @@ const onGridReady = (params: { api: any; columnApi: any }) => {
     gridApi = params.api
 }
 
-const handleExternalButtonClick = () => {
+const handleExternalButtonClick = async () => {
+    state.isFailedToast = false
+    state.isSuccessedToast = true
     gridApi.stopEditing()
-    const rowData = gridApi.getModel().rowsToDisplay
-    findRowChanges(rowData)
+    findRowChanges(state.gridData)
+    Promise.all([
+        saveLocale([...state.addedRows, ...state.updatedRows]),
+        deleteLocale([...state.deletedRows.map((val) => (val ? val.msgKey : ''))]),
+    ]).then((res) => {
+        const result = res.map((val) => val.data).find((val) => val === -1)
+        if (result) {
+            state.isFailedToast = true
+            window.setTimeout(() => {
+                state.isFailedToast = false
+            }, 1500)
+        } else {
+            state.isSuccessedToast = true
+            getTrtext()
+            window.setTimeout(() => {
+                state.isSuccessedToast = false
+            }, 1500)
+        }
+    })
 }
 
-const findRowChanges = (rowData: rowData[]) => {
+const findRowChanges = (rowData: Partial<rowData>[]) => {
     state.addedRows = rowData.filter((row) => row.new)
     state.updatedRows = rowData.filter((row) => row.updated)
     state.deletedRows = rowData.filter((row) => row.deleted)
+    state.addedRows = state.addedRows.map((row) => ({ ...row, new: undefined, updated: undefined, deleted: undefined, added: undefined }))
+    state.updatedRows = state.updatedRows.map((row) => ({ ...row, new: undefined, updated: undefined, deleted: undefined, added: undefined }))
+    state.deletedRows = state.deletedRows.map((row) => ({ ...row, new: undefined, updated: undefined, deleted: undefined, added: undefined }))
 }
 
 const getTrtext = async () => {
     const { data } = await requestFullLocaleList()
     const trtexts = data as locale[]
-    console.log(trtexts)
+    trtexts.forEach((val) => (val.added = true))
+    state.gridData = trtexts
 }
 </script>
