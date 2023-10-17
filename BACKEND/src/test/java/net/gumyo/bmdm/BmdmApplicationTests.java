@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import net.gumyo.bmdm.entity.AppRole;
+import net.gumyo.bmdm.entity.Locale;
 import net.gumyo.bmdm.entity.Menu;
 import net.gumyo.bmdm.entity.Menubyrole;
 import net.gumyo.bmdm.entity.RoleByUser;
@@ -16,6 +17,7 @@ import net.gumyo.bmdm.entity.User;
 import net.gumyo.bmdm.entity.User.Role;
 import net.gumyo.bmdm.entity.pks.MexroPk;
 import net.gumyo.bmdm.entity.pks.RoxurPK;
+import net.gumyo.bmdm.repository.LocaleRepository;
 import net.gumyo.bmdm.repository.MenuByRoleRepository;
 import net.gumyo.bmdm.repository.MenuRepository;
 import net.gumyo.bmdm.repository.RoleByUserRepository;
@@ -36,9 +38,11 @@ class BmdmApplicationTests {
 	private RoleRepository rrepo;
 	@Autowired
 	private RoleByUserRepository rburepo;
+	@Autowired
+	private LocaleRepository lrepo;
 
 	@Test
-	void createBasicUserWithRoleAndMenu() {
+	void createBasicUserWithRoleAndMenuAndLocale() {
 		User user = urepo.save(User
 				.builder()
 				.urname("admin")
@@ -66,6 +70,34 @@ class BmdmApplicationTests {
 		rburepo.save(RoleByUser.builder().pk(new RoxurPK(role.getRokey(), user.getUrkey())).build());
 		savedMenus.forEach(
 				menu -> mbrrepo.save(Menubyrole.builder().pk(new MexroPk(role.getRokey(), menu.getMekey())).build()));
+
+		List<Locale> locales = List.of(
+				createLocale("404", "Page not found", "ページが見つかりません", "페이지를 찾을 수 없습니다"),
+				createLocale("ADD", "Add", "追加", "추가"),
+				createLocale("ALARM", "Alarm", "アラーム", "알림"),
+				createLocale("DELETE", "Delete", "削除", "삭제"),
+				createLocale("EMAIL", "Email", "メールアドレス", "이메일"),
+				createLocale("EN_TEXT", "English Text", "英語テキスト", "영어 텍스트"),
+				createLocale("GITHUB", "Github", "Github", "깃허브"),
+				createLocale("GOBACK", "Go back", "戻る", "뒤로가기"),
+				createLocale("GRID_NO_DATA", "-", "-", "-"),
+				createLocale("JP_TEXT", "Japanese Text", "日本語テキスト", "일어 텍스트"),
+				createLocale("KO_TEXT", "Korean Text", "韓国語テキスト", "한글 텍스트"),
+				createLocale("LOCALE", "Language Setting", "言語設定", "언어 설정"),
+				createLocale("LOGIN", "Login", "ログイン", "로그인"),
+				createLocale("MENU", "Menu", "メニュー", "메뉴"),
+				createLocale("MSG_KEY", "Translate key", "翻訳キー", "번역키"),
+				createLocale("PW", "Password", "パスワード", "비밀번호"),
+				createLocale("REFRESH_BTN_DESC", "Refresh the current page", "現在のページ再読み込み", "현재 페이지 새로고침"),
+				createLocale("ROLE", "Authorization", "権限", "권한"),
+				createLocale("SAVE", "Save", "保存", "저장"),
+				createLocale("SAVE_FAIL", "Failed to save", "保存に失敗しました", "저장에 실패하였습니다"),
+				createLocale("SAVE_SUCCESS", "Success to save", "保存に成功しました", "저장에 성공하였습니다"),
+				createLocale("SEARCH", "Search", "検索", "검색"),
+				createLocale("SYSTEM", "System", "システム", "시스템"),
+				createLocale("THEMES", "Theme", "テーマ", "테마"),
+				createLocale("USER", "User", "ユーザー", "사용자"));
+		lrepo.saveAll(locales);
 	}
 
 	private Menu createMenu(String name, String file, int order, Long parentKey) {
@@ -77,6 +109,10 @@ class BmdmApplicationTests {
 				.meorder(order)
 				.parentmekey(parentKey)
 				.build();
+	}
+
+	private Locale createLocale(String mk, String e, String j, String k) {
+		return Locale.builder().msgKey(mk).en_text(e).jp_text(j).ko_text(k).build();
 	}
 
 }
