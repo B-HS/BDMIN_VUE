@@ -12,10 +12,12 @@
 4. 탭 (캐싱/닫기/새로고침)
 5. 메뉴 검색
 6. 테마 프리셋(DasyUI Themes / https://daisyui.com/docs/themes/)
+7. 서버사이드 i18n
 
 # 진행 중
-1. 서버사이드 i18n / 언어 선택
-2. 전체 새로고침 시에 다시 불러올 로직 설정
+1. 언어 선택
+2. ag-grid에 daisyUI theme적용
+3. 로직점검
 
 # 진행 과제
 1. 사용자 알람(ws)
