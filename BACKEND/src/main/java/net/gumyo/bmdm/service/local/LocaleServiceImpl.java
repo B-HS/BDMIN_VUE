@@ -29,14 +29,19 @@ public class LocaleServiceImpl implements LocaleService {
 
     @Override
     public int saveLocales(List<Map<String, Object>> list) {
-        return localeRepository
-                .saveAll(list.stream().map(locale -> objectMapper.convertValue(locale, Locale.class)).toList())
-                .size();
+        if (list.size() > 0) {
+            return localeRepository
+                    .saveAll(list.stream().map(locale -> objectMapper.convertValue(locale, Locale.class)).toList())
+                    .size();
+        }
+
+        return 0;
     }
 
     @Override
     public void deleteLocales(List<String> list) {
-        localeRepository.findAllById(list);
+        localeRepository.deleteAll(localeRepository.findAllById(list));
+        ;
     }
 
 }

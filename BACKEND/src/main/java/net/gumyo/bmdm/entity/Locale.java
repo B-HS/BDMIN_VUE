@@ -18,8 +18,11 @@ public class Locale {
     private String msgKey;
 
     @Column
-    private String langType;
+    private String ko_text;
 
     @Column
-    private String trtext;
+    private String jp_text;
+
+    @Column
+    private String en_text;
 }
