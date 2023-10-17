@@ -1,5 +1,5 @@
 <template>
-    <DraggableModal title="SEARCH" ref="searchModal">
+    <DraggableModal :title="t('SEARCH')" ref="searchModal">
         <input v-model="state.searchValue" type="text" class="input input-bordered w-full mb-5" />
         <section class="flex flex-col gap-3">
             <div
@@ -19,12 +19,14 @@
 </template>
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { findBreadcrumbPath } from '../../module/breadCrumble'
 import { router } from '../../router/router'
 import { useUserStore } from '../../store/modules/user'
 import { MenuItem } from '../../types/user'
 import DraggableModal from '../draggableModal.vue'
 
+const { t } = useI18n()
 const searchModal = ref()
 const state = reactive({
     searchValue: '',
@@ -48,5 +50,11 @@ const go = (path: string) => {
     searchModal.value.close()
 }
 
-defineExpose({ open: () => searchModal.value.show(), close: () => searchModal.value.close() })
+defineExpose({
+    open: () => {
+        state.searchValue = ''
+        searchModal.value.show()
+    },
+    close: () => searchModal.value.close(),
+})
 </script>

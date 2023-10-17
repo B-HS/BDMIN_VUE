@@ -1,4 +1,5 @@
 import { RouteRecordRaw, Router } from 'vue-router'
+import { isolatedT } from '../../locale/locale'
 import { useUserStoreWithoutInit } from '../../store/modules/user'
 import { MenuItem } from '../../types/user'
 import { router as defaultRouter } from '../router'
@@ -6,8 +7,9 @@ import { router as defaultRouter } from '../router'
 const dynamicMenuImporting = (menu: MenuItem[]) => {
     const components = import.meta.glob('../../pages/**/*.vue')
     const componentNames = Object.keys(components).map((val) => '/' + val.split('../../pages/')[1].split('.vue')[0])
+    const t = isolatedT
     menu.forEach((val) => {
-        val.meta = { isAuthed: true, hide: val.hide, cache: val.cache, title: val.mename, raw: { ...val } }
+        val.meta = { isAuthed: true, hide: val.hide, cache: val.cache, title: t(val.mename), raw: { ...val } }
         if (!val.parentmekey) {
             val.name = val.mename
             val.path = val.file

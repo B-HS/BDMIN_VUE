@@ -1,9 +1,9 @@
 <template>
     <section>
-        <button class="tooltip btn btn-outline btn-sm rounded-none border-none" @click="themeModal.show" data-tip="Themes">
+        <button class="tooltip btn btn-outline btn-sm rounded-none border-none" @click="themeModal.show" :data-tip="t('THEMES')">
             <PaintBrushIcon class="w-5" />
         </button>
-        <DraggableModal ref="themeModal" :title="'Theme'" key="thememodal">
+        <DraggableModal ref="themeModal" :title="t('THEMES')" key="thememodal">
             <section class="grid grid-cols-3 gap-3">
                 <section
                     class="btns py-2 p-5 border-1 border-black border rounded"
@@ -23,6 +23,7 @@ import { PaintBrushIcon } from '@heroicons/vue/24/solid'
 import daisyuiColors from 'daisyui/src/theming/themes'
 import { themeChange } from 'theme-change'
 import { onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import DraggableModal from '../draggableModal.vue'
 
 type ThemeKeys = keyof typeof daisyuiColors
@@ -30,6 +31,7 @@ type DataThemeKeys = Extract<ThemeKeys, `[data-theme=${string}]`>
 
 const getThemeName = (name: DataThemeKeys) => name.split('[data-theme=')[1].split(']')[0]
 const themeModal = ref()
+const { t } = useI18n()
 
 onMounted(() => {
     themeChange(false)
