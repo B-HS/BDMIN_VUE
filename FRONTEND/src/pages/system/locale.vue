@@ -35,7 +35,7 @@
 <script setup lang="ts">
 import { XMarkIcon } from '@heroicons/vue/24/solid'
 import { AgGridVue as AGGrid } from 'ag-grid-vue3'
-import { computed, reactive, ref } from 'vue'
+import { ComputedRef, computed, reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { deleteLocale, requestFullLocaleList, saveLocale } from '../../api/locale'
 import Card from '../../components/card.vue'
@@ -44,7 +44,7 @@ import { locale } from '../../types/app'
 interface column {
     field: keyof locale
     width: number
-    headerName: string
+    headerName: string | ComputedRef<string>
     valueGetter: string | Function
     editable: boolean
 }
@@ -66,6 +66,7 @@ interface gridData {
 }
 const grid = ref()
 const { t } = useI18n()
+const ct = (str: string) => computed(() => t(str))
 
 const addRow = () => {
     state.gridData = [...state.gridData, { new: true }]
@@ -84,25 +85,25 @@ const deleteRow = () => {
 const columnDefs = ref<Partial<column>[]>([
     { headerName: 'ID', valueGetter: 'node.id', width: 55 },
     {
-        headerName: t('MSG_KEY'),
+        headerName: ct('MSG_KEY'),
         field: 'msgKey',
         editable: true,
         valueGetter: (param: any) => onUpdate(param, 'msgKey'),
     },
     {
-        headerName: t('KO_TEXT'),
+        headerName: ct('KO_TEXT'),
         field: 'ko_text',
         editable: true,
         valueGetter: (param: any) => onUpdate(param, 'ko_text'),
     },
     {
-        headerName: t('JP_TEXT'),
+        headerName: ct('JP_TEXT'),
         field: 'jp_text',
         editable: true,
         valueGetter: (param: any) => onUpdate(param, 'jp_text'),
     },
     {
-        headerName: t('EN_TEXT'),
+        headerName: ct('EN_TEXT'),
         field: 'en_text',
         editable: true,
         valueGetter: (param: any) => onUpdate(param, 'en_text'),

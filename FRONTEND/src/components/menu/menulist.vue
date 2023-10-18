@@ -4,7 +4,8 @@
     </ul>
 </template>
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useUserStore } from '../../store/modules/user'
 import Menuitem from './menuitem.vue'
-const menuItems = useUserStore().getRefectoredMenu()
+const menuItems = computed(() => useUserStore().getRefectoredMenu())
 </script>

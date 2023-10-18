@@ -4,9 +4,7 @@
             <button @click="() => menuToggle()" class="btn btn-ghost"><Bars3Icon class="text-ghost h-1/2" /></button>
         </div>
         <div class="navbar-center">
-            <span class="normal-case text-xl font-bold" v-if="router.currentRoute.value.meta.title === 'HOME'">{{
-                router.currentRoute.value.meta.title
-            }}</span>
+            <span class="normal-case text-xl font-bold" v-if="router.currentRoute.value.meta.title === 'HOME'">{{}}</span>
             <div class="breadcrumbs p-0">
                 <ul>
                     <li class="overflow-hidden" v-for="item in breadcrumbs" :key="item">
@@ -48,6 +46,12 @@ watch(
     () => router.currentRoute.value,
     (newval) => {
         breadcrumbs.value = findBreadcrumbPath(useUserStore().getRefectoredMenu() as MenuItem[], newval.name as string)
+    },
+)
+watch(
+    () => useUserStore().getRefectoredMenu(),
+    () => {
+        breadcrumbs.value = findBreadcrumbPath(useUserStore().getRefectoredMenu() as MenuItem[], router.currentRoute.value.name as string)
     },
 )
 </script>
