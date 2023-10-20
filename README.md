@@ -16,14 +16,15 @@
    
 
 # 진행 중
-1. 자작 CRUD및 부가기능이 달린 그리드 제작
-2. svg파일 기준 메뉴 정보에 맞는 아이콘 메뉴 아이템에 표시
+1. 자작 그리드 구현 (CRUD v / 마스킹 v / 수정상태 스타일링 / 컬럼 정렬) 
+2. 메뉴 아이콘 기능 구현
 
 # 진행 목표
-1. 사용자 알람(ws) + 알람창
-2. 권한 + 메뉴별 버튼 권한
-3. 직전 depth BreadCrumble에 dropdown추가
-4. github action + aws lightsail 자동배포
+1. ag-grid 삭제하고 자작 그리드로 교체
+2. 사용자 알람(ws) + 알람창
+3. 권한 + 메뉴별 버튼 권한
+4. 직전 depth BreadCrumble에 dropdown추가
+5. github action + aws lightsail 자동배포
 
 # 기간
 ~ 내년 2월
