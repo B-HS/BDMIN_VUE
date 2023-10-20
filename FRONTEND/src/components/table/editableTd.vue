@@ -1,6 +1,6 @@
 <template>
     <td contenteditable="true" @input="onInput" @focusin="onFocusIn" @focusout="onFocusOut">
-        {{ focusedValue ? focusedValue : trtext ? t(trtext) : innerContent }}
+        {{ focusedValue ? focusedValue : trtext ? t(trtext.toUpperCase()) : innerContent }}
     </td>
 </template>
 
