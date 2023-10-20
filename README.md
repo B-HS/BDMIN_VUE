@@ -13,9 +13,10 @@
 5. 메뉴 검색
 6. 테마 프리셋(DasyUI Themes / https://daisyui.com/docs/themes/)
 7. 서버사이드 i18n / 언어 선택기
+   
 
 # 진행 중
-1. ag-grid에 daisyUI theme적용
+1. 자작 CRUD및 부가기능이 달린 그리드 제작
 2. svg파일 기준 메뉴 정보에 맞는 아이콘 메뉴 아이템에 표시
 
 # 진행 목표
