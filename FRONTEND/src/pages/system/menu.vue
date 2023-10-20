@@ -17,6 +17,7 @@
                     <tr v-for="(item, idx) in state.tableData" class="hover:bg-base-200">
                         <EditableTd
                             v-for="elements in columns"
+                            :trtext="state.tableData[idx][elements as keyof MenuHeader]?.toString()"
                             :content="state.tableData[idx][elements as keyof MenuHeader]"
                             :contenteditable="state.tableData[idx]['row_status'] !== 'D'"
                             :class="[{ 'opacity-20 cursor-not-allowed line-through': state.tableData[idx]['row_status'] === 'D' }]"
