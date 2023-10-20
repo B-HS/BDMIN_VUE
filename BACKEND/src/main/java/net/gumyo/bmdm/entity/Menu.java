@@ -41,4 +41,7 @@ public class Menu {
     @Column
     private Boolean cache;
 
+    @Column
+    private String icon;
+
 }
