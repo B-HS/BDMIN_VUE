@@ -23,6 +23,8 @@ const createi18nObj = async (langs: { ko: Record<string, string>; jp: Record<str
         locale: 'ko',
         fallbackLocale: 'jp',
         messages: langs,
+        missingWarn: false,
+        fallbackWarn: false,
     })
 
 const initI18n = async (app: App<Element>) => {
