@@ -22,7 +22,12 @@
                             :trtext="state.tableData[idx][elements as keyof MenuHeader]?.toString()"
                             :content="state.tableData[idx][elements as keyof MenuHeader]"
                             :contenteditable="state.tableData[idx]['row_status'] !== 'D'"
-                            :class="[{ 'opacity-20 cursor-not-allowed line-through': state.tableData[idx]['row_status'] === 'D' }]"
+                            class="transition-all"
+                            :class="[
+                                { 'bg-info': state.tableData[idx]['row_status'] === 'I' },
+                                { 'bg-warning': state.tableData[idx]['row_status'] === 'U' },
+                                { 'opacity-20 cursor-not-allowed line-through bg-error': state.tableData[idx]['row_status'] === 'D' },
+                            ]"
                             @input="(data) => changeEvent(data, idx, elements as keyof MenuHeader)"
                             @click="() => setCurrentCell(idx)"
                             :key="elements + idx"
@@ -93,6 +98,7 @@ const rowDelete = () => {
 
 const changeEvent = (newContent: any, idx: number, target: keyof MenuHeader) => {
     state.tableData[idx][target] = newContent
+    getChangedDataWithStatus()
 }
 
 const getChangedDataWithStatus = () => {
@@ -100,6 +106,8 @@ const getChangedDataWithStatus = () => {
         const orgItem = state.orgTableData[index]
         if (orgItem && !isDataEqual(item, orgItem)) {
             item.row_status = 'U'
+        } else {
+            item.row_status = undefined
         }
     })
 }
@@ -107,10 +115,18 @@ const getChangedDataWithStatus = () => {
 const isDataEqual = (item1: Partial<MenuHeader>, item2: Partial<MenuHeader>): boolean => {
     let isEqual = true
     Object.keys(item1).forEach((key) => {
-        if (key !== 'row_status' && item1[key as keyof MenuHeader] !== item2[key as keyof MenuHeader]) {
+        if (key !== 'row_status' && item1[key as keyof MenuHeader] != item2[key as keyof MenuHeader]) {
+            console.log('================')
+
+            console.log(item1)
+            console.log(item2)
+            console.log('================')
+
             isEqual = false
         }
     })
+    console.log(isEqual)
+
     return isEqual
 }
 
