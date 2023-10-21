@@ -7,10 +7,12 @@
             <button class="btn btn-outline btn-xs" @click="search">{{ t('SEARCH') }}</button>
         </Card>
         <Card class="overflow-x-auto">
-            <table class="table">
+            <table class="table table-fixed">
                 <thead>
                     <tr>
-                        <th v-for="column in columns" :key="column">{{ t(column.toUpperCase()) }}</th>
+                        <th v-for="column in columns" :key="column" @click="toggleSorting(column)">
+                            {{ t(column.toUpperCase()) }} {{ sorting[column] === 'asc' ? '▲' : sorting[column] === 'desc' ? '▼' : '' }}
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,6 +58,7 @@ interface MenuHeader {
 
 const { t } = useI18n()
 const columns = ['mekey', 'mename', 'parentmekey', 'meorder', 'hide', 'cache', 'icon']
+const sorting = reactive<{ [key: string]: 'asc' | 'desc' | 'none' }>({})
 const state = reactive({
     tableData: [] as Partial<MenuHeader>[],
     orgTableData: [] as Partial<MenuHeader>[],
@@ -111,7 +114,44 @@ const isDataEqual = (item1: Partial<MenuHeader>, item2: Partial<MenuHeader>): bo
     return isEqual
 }
 
-const setCurrentCell = (idx: number) => {
-    state.currentCellInfo = { idx, ...state.tableData[idx] }
+const setCurrentCell = (idx: number) => (state.currentCellInfo = { idx, ...state.tableData[idx] })
+
+const toggleSorting = (column: string) => {
+    if (sorting[column] === 'asc') {
+        sorting[column] = 'desc'
+    } else if (sorting[column] === 'desc') {
+        sorting[column] = 'none'
+    } else {
+        sorting[column] = 'asc'
+    }
+
+    sortTableData(column, sorting[column])
+}
+
+const stringer = (target: unknown) => {
+    if (!target) {
+        return Number.MIN_SAFE_INTEGER
+    }
+    if (typeof target === 'boolean') {
+        return target.toString().toUpperCase()
+    }
+    return target.toString()
+}
+
+const sortTableData = (column: string, order: 'asc' | 'desc' | 'none') => {
+    if (order === 'none') {
+        state.tableData = [...state.tableData.sort((prev, next) => prev.mekey! - next.mekey!)]
+        return
+    }
+
+    const compareValues = (a: Record<string, any>, b: Record<string, any>) => {
+        const valueA = t(stringer(a[column as keyof MenuHeader]))
+        const valueB = t(stringer(b[column as keyof MenuHeader]))
+        return order === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA)
+    }
+
+    if (state.tableData.length > 1 && state.tableData.some((item, index) => index > 0 && compareValues(item, state.tableData[index - 1]) !== 0)) {
+        state.tableData.sort(compareValues)
+    }
 }
 </script>
