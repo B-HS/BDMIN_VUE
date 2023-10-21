@@ -127,6 +127,9 @@ const stringer = (target: unknown) => {
 }
 
 const toggleSorting = (column: string) => {
+    if (!sorting[column]) {
+        Object.keys(sorting).forEach((col) => delete sorting[col])
+    }
     if (sorting[column] === 'asc') {
         sorting[column] = 'desc'
     } else if (sorting[column] === 'desc') {
