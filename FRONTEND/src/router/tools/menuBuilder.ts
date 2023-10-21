@@ -10,7 +10,7 @@ const dynamicMenuImporting = (menu: MenuItem[]) => {
     const t = isolatedT
     menu.forEach((val) => {
         val.meta = { isAuthed: true, hide: val.hide, cache: val.cache, title: t(val.mename), raw: { ...val } }
-        if (!val.parentmekey) {
+        if (val.parentmekey === 0) {
             val.name = val.mename
             val.path = val.file
         } else if (componentNames.includes(val.file)) {
@@ -26,7 +26,7 @@ const dynamicMenuImporting = (menu: MenuItem[]) => {
     return menu
 }
 
-const recursiveMenuMaker = (items: MenuItem[], parentmekey: number | null = null) =>
+const recursiveMenuMaker = (items: MenuItem[], parentmekey: number = 0) =>
     items
         // pid별 아이템을 설정함 (각 depth는 pid로 가정)
         .filter((item) => item.parentmekey === parentmekey)
