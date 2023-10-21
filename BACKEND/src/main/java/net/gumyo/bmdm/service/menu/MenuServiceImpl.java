@@ -8,12 +8,15 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import net.gumyo.bmdm.entity.Menu;
 import net.gumyo.bmdm.repository.MenuRepository;
 import net.gumyo.bmdm.repository.RoleByUserRepository;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class MenuServiceImpl implements MenuService {
     private final RoleByUserRepository rburepo;
     private final MenuRepository mrepo;
@@ -32,5 +35,17 @@ public class MenuServiceImpl implements MenuService {
         return mrepo.findAll().stream()
                 .map(val -> objectMapper.convertValue(val, new TypeReference<Map<String, Object>>() {
                 })).toList();
+    }
+
+    @Override
+    public void saveMenuList(List<Map<String, Object>> list) {
+        list.forEach(val -> {
+            if ("I".equals(val.get("row_status")) || "U".equals(val.get("row_status"))) {
+                val.remove("row_status");
+                mrepo.save(objectMapper.convertValue(val, Menu.class));
+            } else if ("D".equals(val.get("row_status"))) {
+                mrepo.deleteById(Long.parseLong(val.get("mekey").toString()));
+            }
+        });
     }
 }
