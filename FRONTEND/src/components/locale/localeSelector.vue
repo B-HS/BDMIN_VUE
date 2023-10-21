@@ -3,8 +3,10 @@
         <label tabindex="0" class="tooltip btn btn-outline btn-sm rounded-none border-none group flex">
             <LanguageIcon class="w-5" />
         </label>
-        <ul tabindex="0" class="dropdown-content z-[50] menu shadow bg-base-100 rounded-box w-12 p-0">
-            <li class="hover:bg-base-300 p-2 flex items-center cursor-pointer" v-for="locale in localeItems" @click="locale.fn">{{ locale.name }}</li>
+        <ul tabindex="0" class="dropdown-content z-[50] menu shadow bg-base-100 w-12 p-0">
+            <li class="hover:bg-base-300 p-2 flex items-center cursor-pointer" v-for="locale in localeItems" @click="locale.fn">
+                {{ locale.name }}
+            </li>
         </ul>
     </div>
 </template>
