@@ -58,7 +58,7 @@ interface MenuHeader {
 
 const { t } = useI18n()
 const columns = ['mekey', 'mename', 'parentmekey', 'meorder', 'hide', 'cache', 'icon']
-const sorting = reactive<{ [key: string]: 'asc' | 'desc' | 'none' }>({})
+const sorting = reactive<{ [key: string]: 'asc' | 'desc' }>({})
 const state = reactive({
     tableData: [] as Partial<MenuHeader>[],
     orgTableData: [] as Partial<MenuHeader>[],
@@ -116,18 +116,6 @@ const isDataEqual = (item1: Partial<MenuHeader>, item2: Partial<MenuHeader>): bo
 
 const setCurrentCell = (idx: number) => (state.currentCellInfo = { idx, ...state.tableData[idx] })
 
-const toggleSorting = (column: string) => {
-    if (sorting[column] === 'asc') {
-        sorting[column] = 'desc'
-    } else if (sorting[column] === 'desc') {
-        sorting[column] = 'none'
-    } else {
-        sorting[column] = 'asc'
-    }
-
-    sortTableData(column, sorting[column])
-}
-
 const stringer = (target: unknown) => {
     if (!target) {
         return Number.MIN_SAFE_INTEGER
@@ -138,8 +126,20 @@ const stringer = (target: unknown) => {
     return target.toString()
 }
 
-const sortTableData = (column: string, order: 'asc' | 'desc' | 'none') => {
-    if (order === 'none') {
+const toggleSorting = (column: string) => {
+    if (sorting[column] === 'asc') {
+        sorting[column] = 'desc'
+    } else if (sorting[column] === 'desc') {
+        delete sorting[column]
+    } else {
+        sorting[column] = 'asc'
+    }
+
+    sortTableData(column, sorting[column])
+}
+
+const sortTableData = (column: string, order: 'asc' | 'desc') => {
+    if (!order) {
         state.tableData = [...state.tableData.sort((prev, next) => prev.mekey! - next.mekey!)]
         return
     }
