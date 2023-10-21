@@ -43,7 +43,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { requestMenuList } from '../../api/menu'
+import { requestMenuList, saveMenuList } from '../../api/menu'
 import Card from '../../components/card.vue'
 import EditableTd from '../../components/table/editableTd.vue'
 
@@ -78,8 +78,11 @@ const search = async () => {
 }
 const save = () => {
     getChangedDataWithStatus()
-    console.log('data', state.tableData)
-    console.log('orgData', state.orgTableData)
+    console.log(state.tableData)
+
+    saveMenuList(state.tableData.filter((val) => val.row_status)).then((res) => {
+        res.data && search()
+    })
 }
 
 const addRow = () => {
@@ -106,7 +109,7 @@ const getChangedDataWithStatus = () => {
         const orgItem = state.orgTableData[index]
         if (orgItem && !isDataEqual(item, orgItem)) {
             item.row_status = 'U'
-        } else {
+        } else if (item.row_status !== 'I' && item.row_status !== 'D') {
             item.row_status = undefined
         }
     })
@@ -116,12 +119,6 @@ const isDataEqual = (item1: Partial<MenuHeader>, item2: Partial<MenuHeader>): bo
     let isEqual = true
     Object.keys(item1).forEach((key) => {
         if (key !== 'row_status' && item1[key as keyof MenuHeader] != item2[key as keyof MenuHeader]) {
-            console.log('================')
-
-            console.log(item1)
-            console.log(item2)
-            console.log('================')
-
             isEqual = false
         }
     })
