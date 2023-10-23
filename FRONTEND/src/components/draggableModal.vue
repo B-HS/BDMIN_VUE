@@ -16,7 +16,7 @@
                 <slot></slot>
             </section>
 
-            <section class="modal-footer px-5 py-3 flex justify-end" v-if="props.footer">
+            <section class="modal-footer px-5 py-3 flex justify-end" :class="[props.footerStyle]" v-if="props.footer">
                 <button v-for="item in props.footer" :key="item.name" :class="['btn', item.class, `btn-${item.type}`]" @click="item.fn">
                     {{ item.name }}
                 </button>
@@ -33,7 +33,7 @@ import { reactive, ref } from 'vue'
 
 const draggableModal = ref()
 const modalheader = ref()
-const props = defineProps<{ title?: string; footer?: { name: string; type: string; fn: Function; class?: string }[] }>()
+const props = defineProps<{ title?: string; footer?: { name: string; type: string; fn: Function; class?: string }[]; footerStyle?: string }>()
 const show = () => draggableModal.value.showModal()
 const close = () => draggableModal.value.close()
 const modalStatus = reactive({
