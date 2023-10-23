@@ -1,6 +1,6 @@
 package net.gumyo.bmdm.entity;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -75,7 +75,7 @@ public class User {
     }
 
     public Map<String, Object> getLoginInfo() {
-        Map<String, Object> user = new HashMap<>();
+        Map<String, Object> user = new LinkedHashMap<>();
         user.put("urkey", urkey);
         user.put("email", email);
         user.put("urname", urname);
