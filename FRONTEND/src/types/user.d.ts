@@ -6,7 +6,7 @@ interface ServerUserInfo {
     email: string
     introduce: string
     lastLogin: string | Date
-    nickname: string
+    urnickname: string
     roles: string[]
     urkey: number
     urname: string
