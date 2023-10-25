@@ -13,7 +13,7 @@
 5. 메뉴 검색
 6. 테마 프리셋(DasyUI Themes / https://daisyui.com/docs/themes/)
 7. 서버사이드 i18n / 언어 선택기
-8. 자작 그리드 구현 (CRUD / 마스킹 / 행 상태 스타일링 / 컬럼 정렬) 
+8. 자작 그리드 구현 (CRUD / 마스킹 / 행 상태 스타일링 / 컬럼 정렬)
    
 
 # 진행 중
@@ -25,7 +25,8 @@
 2. 사용자 알람(ws) + 알람창
 3. 권한 + 메뉴별 버튼 권한
 4. 직전 depth BreadCrumble에 dropdown추가
-5. github action + aws lightsail 자동배포
+5. 단축키 기능
+6. github action + aws lightsail 자동배포
 
 # 기간
 ~ 내년 2월
