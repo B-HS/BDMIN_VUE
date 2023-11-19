@@ -32,3 +32,4 @@
 
 # 포스팅
 - [[B_CMS] vue의 keep-alive를 사용해보자 feat. vue-router](https://hbyun.tistory.com/255)
+- [[B_CMS] vue에서 페이지 캐싱을 동적으로 구현해보자](https://hbyun.tistory.com/257)
