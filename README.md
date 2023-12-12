@@ -28,7 +28,7 @@
 6. github action + aws lightsail 자동배포
 
 # 기간
-~ 내년 2월
+~ 내년 상반기
 
 # 포스팅
 - [[B_CMS] vue의 keep-alive를 사용해보자 feat. vue-router](https://hbyun.tistory.com/255)
