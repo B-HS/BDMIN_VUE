@@ -5,13 +5,9 @@
         </button>
         <DraggableModal ref="themeModal" :title="t('THEMES')" key="thememodal">
             <section class="grid grid-cols-3 gap-3">
-                <section
-                    class="btns py-2 p-5 border-1 border-black border rounded"
-                    v-for="item in Object.keys(daisyuiColors)"
-                    :data-theme="getThemeName(item as DataThemeKeys)"
-                >
-                    <button class="btn btn-outline w-full" :data-set-theme="getThemeName(item as DataThemeKeys)">
-                        {{ getThemeName(item as DataThemeKeys) }}
+                <section class="btns py-2 p-5 border-1 border-black border rounded" v-for="item in Object.keys(daisyuiColors)" :data-theme="item">
+                    <button class="btn btn-outline w-full" :data-set-theme="item">
+                        {{ item }}
                     </button>
                 </section>
             </section>
@@ -26,10 +22,6 @@ import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import DraggableModal from '../draggableModal.vue'
 
-type ThemeKeys = keyof typeof daisyuiColors
-type DataThemeKeys = Extract<ThemeKeys, `[data-theme=${string}]`>
-
-const getThemeName = (name: DataThemeKeys) => name.split('[data-theme=')[1].split(']')[0]
 const themeModal = ref()
 const { t } = useI18n()
 
