@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import { computed, reactive } from 'vue'
-import { appSetting } from '../../types/app'
 import { store } from '../store'
 
 const useAppstore = defineStore(
@@ -9,7 +8,7 @@ const useAppstore = defineStore(
         const nonePersistState = reactive({
             isLoading: false,
         })
-        const state = reactive<appSetting>({
+        const state = reactive({
             menubarWidth: 250,
             menubarHide: false,
         })
