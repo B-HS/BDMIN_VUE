@@ -46,14 +46,11 @@ public class RedisRepository {
         Integer rtkUrkey = Integer
                 .valueOf(Optional.ofNullable(redisTemplate.opsForValue().get(rtk)).orElseGet(() -> "-1").toString());
         User atkDBInfo = urepo.findById(atkUrkey).orElseGet(() -> User.builder().urkey(-1).build());
-
-        if (!manager.tokenValidator(rtk) ||
+        if (!manager.tokenValidator("Bearer " + rtk) ||
                 atkDBInfo.getUrkey() == -1 ||
-                !atkDBInfo.getIsLogged() ||
-                atkUrkey != rtkUrkey) {
+                !atkUrkey.equals(rtkUrkey)) {
             return false;
         }
-
         return true;
     }
 }
