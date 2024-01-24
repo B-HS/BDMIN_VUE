@@ -33,8 +33,6 @@ const state = reactive<{ targetInfo: Partial<ServerUserInfo & { row_status?: 'I'
         urname: undefined,
         urnickname: undefined,
         introduce: undefined,
-        lastLogin: undefined,
-        roles: undefined,
         row_status: undefined,
     },
 })
