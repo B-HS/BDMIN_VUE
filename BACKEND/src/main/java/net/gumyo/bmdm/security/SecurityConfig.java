@@ -29,24 +29,22 @@ public class SecurityConfig {
     private final LoginSuccess loginSuccess;
     private final LoginFailure loginFailure;
 
-    HttpSecurity setDefaultConfig(HttpSecurity http) throws Exception {
+    void setDefaultConfig(HttpSecurity http) throws Exception {
         http.csrf(val -> val.disable());
         http.httpBasic(val -> val.disable());
         http.formLogin(val -> val.disable());
         http.logout(val -> val.disable());
         http.sessionManagement(val -> val.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        return http;
     }
 
-    HttpSecurity setFilterConfig(HttpSecurity http) throws Exception {
+    void setFilterConfig(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(
                 val -> val.requestMatchers("/admin/**").hasAuthority("ADMIN").anyRequest().permitAll());
         http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-        return http;
     }
 
     @Bean
-    SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         setDefaultConfig(http);
         setFilterConfig(http);
         return http.build();
