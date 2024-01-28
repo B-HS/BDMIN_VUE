@@ -72,21 +72,29 @@ class BmdmApplicationTests {
 				menu -> mbrrepo.save(Menubyrole.builder().pk(new MexroPk(role.getRokey(), menu.getMekey())).build()));
 
 		List<Locale> locales = List.of(
-				createLocale("404", "Page not found", "ページが見つかりません", "페이지를 찾을 수 없습니다"),
+				createLocale("404", "Page not found", "ページが見つかりませんでした", "페이지를 찾을 수 없습니다"),
 				createLocale("ADD", "Add", "追加", "추가"),
 				createLocale("ALARM", "Alarm", "アラーム", "알림"),
+				createLocale("CACHE", "Caching", "キャッシュ", "캐싱 여부"),
 				createLocale("DELETE", "Delete", "削除", "삭제"),
 				createLocale("EMAIL", "Email", "メールアドレス", "이메일"),
 				createLocale("EN_TEXT", "English Text", "英語テキスト", "영어 텍스트"),
 				createLocale("GITHUB", "Github", "Github", "깃허브"),
 				createLocale("GOBACK", "Go back", "戻る", "뒤로가기"),
 				createLocale("GRID_NO_DATA", "-", "-", "-"),
+				createLocale("HIDE", "Hide", "隠し", "숨김 여부"),
+				createLocale("ICON", "Icon", "アイコン", "아이콘"),
 				createLocale("JP_TEXT", "Japanese Text", "日本語テキスト", "일어 텍스트"),
 				createLocale("KO_TEXT", "Korean Text", "韓国語テキスト", "한글 텍스트"),
+				createLocale("LASTLOGIN", "Last login", "最終ログイン日", "마지막 접속일"),
 				createLocale("LOCALE", "Language Setting", "言語設定", "언어 설정"),
 				createLocale("LOGIN", "Login", "ログイン", "로그인"),
+				createLocale("MEKEY", "Menu key", "メニューキー", "메뉴키"),
+				createLocale("MENAME", "Menu name", "メニュー名", "메뉴 명"),
 				createLocale("MENU", "Menu", "メニュー", "메뉴"),
+				createLocale("MEORDER", "Menu order", "メニュ順番", "메뉴 순서"),
 				createLocale("MSG_KEY", "Translate key", "翻訳キー", "번역키"),
+				createLocale("PARENTMEKEY", "Parent menu key", "上位メニューキー", "상위 메뉴키"),
 				createLocale("PW", "Password", "パスワード", "비밀번호"),
 				createLocale("REFRESH_BTN_DESC", "Refresh the current page", "現在のページ再読み込み", "현재 페이지 새로고침"),
 				createLocale("ROLE", "Authorization", "権限", "권한"),
@@ -96,6 +104,9 @@ class BmdmApplicationTests {
 				createLocale("SEARCH", "Search", "検索", "검색"),
 				createLocale("SYSTEM", "System", "システム", "시스템"),
 				createLocale("THEMES", "Theme", "テーマ", "테마"),
+				createLocale("URKEY", "User key", "ユーザーキー", "사용자키"),
+				createLocale("URNAME", "User name", "ユーザー名", "사용자명"),
+				createLocale("URNICKNAME", "Nickname", "ニックネーム", "닉네임"),
 				createLocale("USER", "User", "ユーザー", "사용자"));
 		lrepo.saveAll(locales);
 	}
