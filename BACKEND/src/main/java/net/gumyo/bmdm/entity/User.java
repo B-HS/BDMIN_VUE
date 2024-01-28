@@ -74,6 +74,12 @@ public class User {
         this.isLogged = logged;
     }
 
+    public void updateUserInfo(User user) {
+        this.urname = user.getUrname();
+        this.urnickname = user.getUrnickname();
+        this.introduce = user.getIntroduce();
+    }
+
     public Map<String, Object> getLoginInfo() {
         Map<String, Object> user = new LinkedHashMap<>();
         user.put("urkey", urkey);

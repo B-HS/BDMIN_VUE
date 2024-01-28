@@ -30,8 +30,10 @@ public class UserServiceImpl implements UserService {
     public void saveUserList(List<Map<String, Object>> list) {
         list.forEach(val -> {
             if ("I".equals(val.get("row_status")) || "U".equals(val.get("row_status"))) {
+                User user = urepo.findById((int) val.get("urkey")).orElseGet(User::new);
                 val.remove("row_status");
-                urepo.save(objectMapper.convertValue(val, User.class));
+                user.updateUserInfo(objectMapper.convertValue(val, User.class));
+                urepo.save(user);
             } else if ("D".equals(val.get("row_status"))) {
                 urepo.deleteById(Integer.parseInt(val.get("urkey").toString()));
             }
