@@ -4,7 +4,7 @@
 - 야금야금 기분 좋을 때 조금씩 업데이트
 
 # 목표
-- B2B 플랫폼에서 자주쓰이는 형태의 CMS 제작
+- B2B 플랫폼에서 자주쓰이는 형태의 ADMIN제작
 
 # 완료 기능
 1. 로그인
@@ -30,5 +30,5 @@
 
 
 # 포스팅
-- [[B_CMS] vue의 keep-alive를 사용해보자 feat. vue-router](https://hbyun.tistory.com/255)
-- [[B_CMS] vue에서 페이지 캐싱을 동적으로 구현해보자](https://hbyun.tistory.com/257)
+- [ vue의 keep-alive를 사용해보자 feat. vue-router](https://hbyun.tistory.com/255)
+- [ vue에서 페이지 캐싱을 동적으로 구현해보자](https://hbyun.tistory.com/257)
